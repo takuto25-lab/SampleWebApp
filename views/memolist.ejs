@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="create">
+        <form action="/memos" method="post" >
+            <input name="text" style="width:350px;" required>
+            <button type="submit">登録</button>
+        </form>
+    </div>
+    <div class="list">
+        <table>
+            <h2>登録内容一覧</h2>
+            <% memos.forEach(m => { %>
+                <tr>
+                    <td>
+                        <form action="/memos/update/<%= m.Id %>" method="POST">
+                            <input type="text" name="text" value="<%= m.Text %>" style="width:350px;" required>
+                            <button type="submit">変更</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/memos/delete/<%= m.Id %>" method="POST">
+                            <button type="submit">削除</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>
