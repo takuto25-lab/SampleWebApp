@@ -12,27 +12,26 @@ jobs:
   build-and-deploy:
     #実行されるVM
     runs-on: ubuntu-latest
-
     #各処理について
     steps:
-　　　#VMにコードをクローン
+      #VMにコードをクローン
       - uses: actions/checkout@v4
 
-　　　#Node.js v20のインストール
+      #Node.js v20のインストール
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-　　　#npmをインストール
+      #npmをインストール
       - name: Install dependencies
         run: npm install
 
-　　　#package.json内に該当する記載があれば実行
+      #package.json内に該当する記載があれば実行
       - name: Build (if exists)
         run: npm run build --if-present
 
-　　　#AzureAppServiceにデプロイ
+      #AzureAppServiceにデプロイ
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
