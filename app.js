@@ -55,7 +55,7 @@ app.use(function(err, req, res, next) {
 });
 
 //サーバー起動
-const PORT = process.env.PORT;
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server is running → http://localhost:${PORT}/memos`);
 });

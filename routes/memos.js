@@ -9,7 +9,7 @@ const pool = require('../db');
 //async：awaitを使って非同期処理が可能
 router.get('/',async(req,res) =>{
     try{
-        const [rows] = await pool.query('SELECT * FROM Memo');
+        const [rows] = await pool.query('SELECT * FROM memo');
         res.render('memolist', { memos: rows });
     }catch(err){
         res.status(500).send(err.message);
@@ -20,7 +20,7 @@ router.post('/',async(req,res) =>{
     try{
         const text = req.body.text;
         await pool.query(
-            'INSERT INTO Memo (Text) VALUES (?)',
+            'INSERT INTO memo (Text) VALUES (?)',
             [text]
         );
         res.redirect('/memos');
@@ -33,7 +33,7 @@ router.post('/delete/:id',async(req,res) =>{
     try{
         const id = req.params.id;
         await pool.query(
-            'DELETE FROM Memo WHERE Id = ?',
+            'DELETE FROM memo WHERE Id = ?',
             [id]
         );
     }catch(err){
@@ -47,7 +47,7 @@ router.post('/update/:id',async(req,res) =>{
         const text = req.body.text;
         const pool = await sql.connect(config);
         await pool.query(
-            'UPDATE Memo SET Text = ? WHERE Id = ?',
+            'UPDATE memo SET Text = ? WHERE Id = ?',
             [text, id]
         );
         res.redirect('/memos');
