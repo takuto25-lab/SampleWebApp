@@ -1,23 +1,16 @@
 require('dotenv').config();
+const mysql = require('mysql2/promise');
 
-const config={
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,
-    database: process.env.DB_DATABASE,
-    options:{
-        //通信を暗号化(TLS/SSL)
-        encrypt: true,
-        //サーバー証明書をチェックするか
-        trustServerCertificate:false
-    },
-    pool:{
-        //接続プールの数
-        max:10,
-        min:0,
-        //解放までの時間(0.001秒単位)
-        idleTimeoutMillis:30000
-    }
-};
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
+
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
 module.exports = config;
