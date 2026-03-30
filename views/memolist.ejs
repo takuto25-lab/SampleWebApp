@@ -20,13 +20,13 @@
             <% memos.forEach(m => { %>
                 <tr>
                     <td>
-                        <form action="/memos/update/<%= m.Id %>" method="POST">
-                            <input type="text" name="text" value="<%= m.Text %>" style="width:350px;" required>
+                        <form action="/memos/update/<%= m.id %>" method="POST">
+                            <input type="text" name="text" value="<%= m.text %>" style="width:350px;" required>
                             <button type="submit">変更</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/memos/delete/<%= m.Id %>" method="POST">
+                        <form action="/memos/delete/<%= m.id %>" method="POST">
                             <button type="submit">削除</button>
                         </form>
                     </td>

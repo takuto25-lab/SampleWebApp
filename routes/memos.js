@@ -20,7 +20,7 @@ router.post('/',async(req,res) =>{
     try{
         const text = req.body.text;
         await pool.query(
-            'INSERT INTO memo (Text) VALUES (?)',
+            'INSERT INTO memo (text) VALUES (?)',
             [text]
         );
         res.redirect('/memos');
@@ -33,9 +33,10 @@ router.post('/delete/:id',async(req,res) =>{
     try{
         const id = req.params.id;
         await pool.query(
-            'DELETE FROM memo WHERE Id = ?',
+            'DELETE FROM memo WHERE id = ?',
             [id]
         );
+        res.redirect('/memos');
     }catch(err){
         res.status(500).send(err.message);
     }
@@ -45,9 +46,8 @@ router.post('/update/:id',async(req,res) =>{
     try{
         const id = req.params.id;
         const text = req.body.text;
-        const pool = await sql.connect(config);
         await pool.query(
-            'UPDATE memo SET Text = ? WHERE Id = ?',
+            'UPDATE memo SET text = ? WHERE id = ?',
             [text, id]
         );
         res.redirect('/memos');
