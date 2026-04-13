@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Memo App</title>
 </head>
+
 <body>
+    <%- include('partials/header') %>
+    <% if (error) { %>
+        <p style="color:red;"><%= error %></p>
+    <% } %>
     <div class="create">
-	<h2>新規登録フォーム</h2>
+	<h2>新規メモ登録</h2>
         <form action="/memos" method="post" >
             <input name="text" style="width:350px;" required>
             <button type="submit">登録</button>
         </form>
     </div>
     <div class="list">
-        <table>
             <h2>登録内容一覧</h2>
             <% memos.forEach(m => { %>
-                <tr>
-                    <td>
-                        <form action="/memos/update/<%= m.id %>" method="POST">
-                            <input type="text" name="text" value="<%= m.text %>" style="width:350px;" required>
-                            <button type="submit">変更</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/memos/delete/<%= m.id %>" method="POST">
-                            <button type="submit">削除</button>
-                        </form>
-                    </td>
-                </tr>
+                <div class="memo-item">
+                <form action="/memos/update/<%= m.id %>" method="POST">
+                    <input type="text" name="text" value="<%= m.text %>" required>
+                    <button type="submit">変更</button>
+                </form>
+                <form action="/memos/delete/<%= m.id %>" method="POST">
+                    <button class="delete-btn">削除</button>
+                </form>
+                </div>
             <% }) %>
-        </table>
     </div>
 </body>
 </html>

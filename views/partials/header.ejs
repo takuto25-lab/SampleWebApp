@@ -1,0 +1,10 @@
+<header>
+  <nav>
+    <% if (!user) { %>
+      <a href="/login">ログイン</a>
+    <% } else { %>
+      <span>お名前：<%= user.username %></span>
+      <a href="/login/logout">ログアウト</a>
+    <% } %>
+  </nav>
+</header>

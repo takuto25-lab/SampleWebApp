@@ -5,11 +5,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bcrypt = require("bcrypt");
+const session = require("express-session");
 
 
 //ルートの読み込み
 const indexRouter = require('./routes/index');
 const memosRouter = require('./routes/memos');
+const signupRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
+
+
 
 
 //Expressアプリの生成（これがサーバーそのもの）
@@ -33,10 +39,31 @@ app.use(cookieParser());
 //publicフォルダの静的ファイル(CSS,JS,画像)を公開
 app.use(express.static(path.join(__dirname, 'public')));
 
+//セッション管理用
+app.use(session({
+  secret: "secret-key",
+  resave: false,
+  saveUninitialized: false
+}));
+
+//ログイン状態か否か確認用
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
+app.get('/', (req, res) => {
+  if (req.session.user) {
+    return res.redirect('/memos');
+  }
+  return res.redirect('/login');
+});
 
 //ルート設定
-app.use('/', indexRouter);
 app.use('/memos',memosRouter);
+app.use('/signup',signupRouter);
+app.use('/login', loginRouter);
+
 
 
 //404処理
