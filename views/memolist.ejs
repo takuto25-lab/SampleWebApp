@@ -24,9 +24,10 @@
             <% memos.forEach(m => { %>
                 <div class="memo-item">
                 <form action="/memos/update/<%= m.id %>" method="POST">
-                    <input type="text" name="text" value="<%= m.text %>" required>
+                    <input type="text" name="text" value="<%= m.text %>" style="width:350px;" required>
                     <button type="submit">変更</button>
                 </form>
+                &nbsp;
                 <form action="/memos/delete/<%= m.id %>" method="POST">
                     <button class="delete-btn">削除</button>
                 </form>
